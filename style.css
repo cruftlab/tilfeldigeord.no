@@ -1,0 +1,106 @@
+#randomWord ul {
+    padding-left: 0px;
+    font-size: 300%;
+    font-weight: bold;
+}
+#randomWord li {
+    display: inline;
+}
+#randomWord li:first-child {
+    text-transform: capitalize;
+}
+#randomWord a {
+    color: black;
+}
+#randomWord a:hover {
+    text-decoration: underline;
+}
+
+/* body and divs */
+body {
+ font-family: Georgia, serif;
+ text-align: center;
+ font-size: 16px;
+}
+footer {
+    border-top: 1px solid black;
+    font-size: 80%;
+    margin-top: 2em;
+    padding-top: 1.5em;
+}
+/* end of body and divs */
+
+
+/* fonts */
+#word h1 {
+ font-size: 300%;
+}
+a {
+ text-decoration: none;
+ color: #005500;
+}
+h1 a {
+  text-decoration: none;
+  color: black;
+}
+h1 a:hover, p.all a:hover, ul.returnlinks a:hover, .footer a:hover {
+ text-decoration: none;
+ color: black;
+ background: url('bg.gif');
+}
+/* end of fonts */
+
+
+/* lists */
+ul.returnlinks {
+ list-style-type: disc;
+ margin: 0;
+ padding: 0;
+}
+
+ul.returnlinks li {
+ display: inline;
+ margin-left: 5px;
+}
+/* end of lists */
+
+/* classes */
+.footer {
+  padding-top: 10px;
+  font-size: 60%;
+}
+/* end of classes */
+
+/* lists */
+#allWords li {
+    display: inline;
+}
+#allWords li:after {
+    content: ", ";
+}
+#allWords li:last-child:after {
+    content: "";
+}
+/* end of lists */
+
+
+/* nav */
+ul[role=nav] {
+    font-size: 110%;
+}
+nav ul {
+    -webkit-padding-start: 0px;
+}
+nav li {
+    display: inline;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+}
+/* end of nav */
+
+/* statistics */
+#statistics table {
+    margin: auto;
+    text-align: left;
+}
+/* end of statistics */
