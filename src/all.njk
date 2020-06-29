@@ -1,0 +1,13 @@
+---
+layout: base
+title: Alle ord
+---
+
+<div id="allWords">
+  <h1>Alle ordene:</h1>
+  <ul>
+    {% for noun in nouns %}
+      <li>{{noun}}</li>
+    {% endfor %}
+  </ul>
+</div>

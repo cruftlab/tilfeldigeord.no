@@ -5,13 +5,13 @@
         <title>
             {% block header %}Tilfeldige ord{% endblock %}
         </title>
-        <link rel="stylesheet" href="static/style.css">
+        <link rel="stylesheet" href="/static/style.css">
     </head>
 
     <body>
         <main>
             {{ content | safe }}
-            <nav></nav>
+            {% include "nav.njk" %}
         </main>
 
         <footer>Laget med kjærlighet og <a href="https://github.com/cruftlab/tilfeldigeord.no-static/">åpen kildekode</a>.</footer>
