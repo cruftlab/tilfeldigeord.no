@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block header %}Tilfeldige ord{% endblock %}
+        </title>
+        <link rel="stylesheet" href="static/style.css">
+    </head>
+
+    <body>
+        <main>
+            {{ content | safe }}
+            <nav></nav>
+        </main>
+
+        <footer>Laget med kjærlighet og <a href="https://github.com/cruftlab/tilfeldigeord.no-static/">åpen kildekode</a>.</footer>
+    </body>
+</html>
