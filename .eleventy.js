@@ -5,6 +5,14 @@ module.exports = function (config) {
     // Copy CSS
     config.addPassthroughCopy("src/static");
 
+    // Add stats filters
+    config.addFilter("count", function(collection) {
+        return collection.length;
+    });
+    config.addFilter("combinations", function(collection) {
+        return collection.length * (collection.length - 1);
+    });
+
     return {
         dir: {
             input: 'src',

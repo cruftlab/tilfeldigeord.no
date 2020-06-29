@@ -1,0 +1,18 @@
+---
+layout: base
+title: Statistikk
+---
+
+<div id="statistics">
+  <h1>Statistikk:</h1>
+  <table>
+    <tr>
+      <th>Antall ord:</th>
+      <td>{{ nouns | count }}
+      </tr>
+    <tr>
+      <th>Antall mulige kombinasjoner:</th>
+      <td>{{ nouns | combinations }}
+      </tr>
+    </table>
+  </div>
