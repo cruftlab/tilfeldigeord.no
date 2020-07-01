@@ -39,7 +39,9 @@ function getRandomWordAsList(n) {
   return `<ul><li>${word}</li></ul>`;
 };
 
+function updatePageWithRandomWord() {
+  document.getElementById("randomWord").innerHTML = getRandomWordAsList(2);
+};
+
 // Update random words when page loads
-document.addEventListener("DOMContentLoaded", function(){
-    document.getElementById("randomWord").innerHTML = getRandomWordAsList(2);
-});
+document.addEventListener("DOMContentLoaded", updatePageWithRandomWord);
