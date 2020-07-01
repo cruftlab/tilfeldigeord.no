@@ -12,6 +12,9 @@ module.exports = function (config) {
     config.addFilter("combinations", function(collection) {
         return collection.length * (collection.length - 1);
     });
+    config.addFilter("quote", function(collection) {
+        return collection.map(w => `"${w}"`)
+    });
 
     return {
         dir: {
