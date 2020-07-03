@@ -1,6 +1,6 @@
 <nav>
   <ul role="nav">
-    {% for page in collections.all %}
+    {% for page in collections.navpage | sortedByPriority %}
       <li>
         <a href="{{page.url}}">{{page.data.title}}</a>
       </li>
