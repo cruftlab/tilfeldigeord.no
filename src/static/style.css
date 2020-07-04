@@ -72,8 +72,14 @@ ul.returnlinks li {
 /* end of classes */
 
 /* lists */
+#allWords ul {
+    padding: 0;
+}
 #allWords li {
     display: inline;
+}
+#allWords li:first-child {
+    text-transform: capitalize;
 }
 #allWords li:after {
     content: ", ";
