@@ -1,0 +1,22 @@
+---
+permalink: /static/scripts/app.bundle.js
+eleventyExcludeFromCollections: true
+---
+
+/** Words **/
+var nouns = [{{ nouns | quote | safe }}];
+
+/** App code **/
+{% include "./static/scripts/app.js" %}
+
+/** Update DOM **/
+function getRandomWordAsString() {
+    return "<h1>" + nouns.random(2).combineAsString() + "</h1>"
+}
+
+function updatePageWithRandomWord() {
+    document.getElementById("randomWord").innerHTML = getRandomWordAsString()
+}
+
+// Update random words when page loads
+document.addEventListener("DOMContentLoaded", updatePageWithRandomWord)
