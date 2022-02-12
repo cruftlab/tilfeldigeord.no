@@ -1,6 +1,6 @@
 {
   "name": "tilfeldigeord.no",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Tilfeldige ord",
   "main": "index.js",
   "scripts": {
@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/cruftlab/tilfeldigeord.no#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^0.11.1"
+    "@11ty/eleventy": "^1.0.0"
   }
 }
