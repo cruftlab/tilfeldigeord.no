@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/cruftlab/tilfeldigeord.no#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.0"
+    "@11ty/eleventy": "^2.0.1"
   }
 }
