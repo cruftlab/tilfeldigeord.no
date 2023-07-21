@@ -20,6 +20,21 @@ Object.defineProperty(Array.prototype, 'shuffle', {
 // Stolen from https://stackoverflow.com/a/3291856
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
+} 
+
+// Remove tripple repeated letters, for example "arr" + "ruke" should be "arruke"
+String.prototype.removeTriplets = function() {
+  let result = "";
+
+  for(let i=0; i < this.length; ++i) {
+    const current = this[i];
+    const isTriplet = this[i+1] === current && this[i+2] === current;
+    if(!isTriplet) {
+      result += current;
+    }
+  }
+  
+  return result;
 }
 
 // Get n random words from list
@@ -31,10 +46,10 @@ function getRandomWords(n) {
 
 // Get n random words as unordered list
 // TODO: Link to each word
-// TODO: Add rules for combining words (i.e. concatenate if three of the same letter in a row)
 function getRandomWordAsList(n) {
   var word = getRandomWords(n)
     .join("")
+    .removeTriplets()
     .capitalize();
   return `<ul><li>${word}</li></ul>`;
 };
