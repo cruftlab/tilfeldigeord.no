@@ -1,0 +1,26 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "oskogstad",
+      "name": "Ole Jørgen Skogstad",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5313373?v=4",
+      "profile": "https://www.softis.net",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "tilfeldigeord.no",
+  "projectOwner": "cruftlab"
+}
