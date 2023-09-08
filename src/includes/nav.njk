@@ -1,9 +1,7 @@
 <nav>
-  <ul role="nav">
+  <ul>
     {% for page in collections.navpage | sortedByPriority %}
-      <li>
-        <a href="{{page.url}}">{{page.data.title}}</a>
-      </li>
+    <li><a href="{{page.url}}">{{page.data.title}}</a></li>
     {% endfor %}
   </ul>
 </nav>

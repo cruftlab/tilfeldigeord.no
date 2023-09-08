@@ -1,16 +1,7 @@
-#randomWord ul {
+#randomWord h1 {
     padding-left: 0;
     font-size: 2.5rem;
     font-weight: bold;
-}
-#randomWord li {
-    display: inline;
-}
-#randomWord li:first-child {
-    text-transform: capitalize;
-}
-#randomWord a {
-    color: black;
 }
 #randomWord a:hover {
     text-decoration: underline;
@@ -37,7 +28,7 @@ footer {
 }
 a {
  text-decoration: none;
- color: #005500;
+ color: #317104;
 }
 h1 a {
   text-decoration: none;
@@ -94,7 +85,7 @@ ul.returnlinks li {
 nav {
     margin-top: 2em;
 }
-ul[role=nav] {
+nav ul {
     font-size: 1.4rem;
     padding: 0;
 }
