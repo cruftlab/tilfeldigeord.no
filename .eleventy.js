@@ -2,8 +2,9 @@ module.exports = function (config) {
     // Layouts
     config.addLayoutAlias('base', 'base.njk')
 
-    // Copy CSS
+    // Copy CSS and whatnot
     config.addPassthroughCopy("src/static")
+    config.addPassthroughCopy({"src/public": "/"})
 
     // Add stats filters
     config.addFilter("count", function(collection) {
