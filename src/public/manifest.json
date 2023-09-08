@@ -11,15 +11,16 @@
             "type": "image/svg+xml"
         },
         {
-            "src": "/static/images/favicon/favicon-512x512.png",
+            "src": "/static/images/favicon/splash-icon.png",
             "sizes": "512x512",
-            "type": "image/png"
+            "type": "image/png",
+            "purpose": "any"
         },
         {
-            "src": "/static/images/favicon/favicon-192x192.png",
+            "src": "/static/images/favicon/maskable-icon.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "any maskable"
+            "purpose": "maskable"
         }
     ],
     "theme_color": "#FFFFFF",
