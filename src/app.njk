@@ -4,8 +4,9 @@ eleventyExcludeFromCollections: true
 ---
 import { getRandomWords, getRandomWordAsList } from './utils.js';
 
+const nouns = {{ nouns | safe }};
+
 function updatePageWithRandomWord() {
-  const nouns = {{ nouns | safe }};
   document.getElementById("randomWord").innerHTML = getRandomWordAsList(nouns, 2);
 };
 
