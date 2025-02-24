@@ -5,6 +5,7 @@ module.exports = function (config) {
     // Copy CSS and whatnot
     config.addPassthroughCopy("src/static")
     config.addPassthroughCopy({"src/public": "/"})
+    config.addPassthroughCopy("src/utils.js") // P87da
 
     // Add stats filters
     config.addFilter("count", function(collection) {
