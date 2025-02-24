@@ -4,8 +4,8 @@
   "description": "Tilfeldige ord",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "eleventy",
+    "test": "jest",
+    "build": "eleventy && npm test",
     "watch": "eleventy --watch",
     "serve": "eleventy --serve",
     "start": "eleventy --serve",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/cruftlab/tilfeldigeord.no#readme",
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "jest": "^27.0.0"
   }
 }
