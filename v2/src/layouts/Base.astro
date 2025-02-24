@@ -1,0 +1,27 @@
+---
+import Meta from '../components/Meta.astro';
+import Nav from '../components/Nav.astro';
+import '../styles/style.css';
+
+interface Props {
+    title?: string;
+}
+
+const { title = 'Tilfeldige ord' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <Meta />
+        <title>{title}</title>
+    </head>
+    <body>
+        <main>
+            <slot />
+            <Nav />
+        </main>
+
+        <footer>Laget med kjærlighet og <a href="https://github.com/cruftlab/tilfeldigeord.no/">åpen kildekode</a>.</footer>
+    </body>
+</html>

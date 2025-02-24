@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Base.astro';
+import nouns from '../data/nouns.json';
+
+const title = 'Alle ord';
+const sortedNouns = [...nouns].sort((a, b) => a.localeCompare(b, 'no'));
+---
+
+<Layout title={title}>
+  <div id="allWords">
+    <h1>{title}</h1>
+    <ul>
+      {sortedNouns.map(word => (
+        <li>{word}</li>
+      ))}
+    </ul>
+  </div>
+</Layout>

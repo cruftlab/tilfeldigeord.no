@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Base.astro';
+import nouns from '../data/nouns.json';
+import { getRandomWords, capitalize } from '../utils';
+
+const initialWords = getRandomWords(nouns, 2);
+const initialWord = capitalize(initialWords.join(''));
+---
+
+<Layout>
+  <div id="randomWord">
+    <h1>{initialWord}</h1>
+    <p><a href="#" id="newWord">Nytt ord</a></p>
+  </div>
+
+  <script>
+    import { initializeClientSide } from '../utils';
+    import nouns from '../data/nouns.json';
+    
+    initializeClientSide(nouns);
+  </script>
+</Layout>

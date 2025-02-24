@@ -1,0 +1,15 @@
+---
+const pages = [
+  { url: '/', title: 'Hjem' },
+  { url: '/alle', title: 'Alle ord' },
+  { url: '/statistikk', title: 'Statistikk' }
+];
+---
+
+<nav>
+  <ul>
+    {pages.map(page => (
+      <li><a href={page.url}>{page.title}</a></li>
+    ))}
+  </ul>
+</nav>

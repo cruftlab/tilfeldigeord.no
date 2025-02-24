@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Base.astro';
+import nouns from '../data/nouns.json';
+
+const title = 'Statistikk';
+
+// Calculate statistics
+const totalWords = nouns.length;
+const totalLetters = nouns.join('').length;
+const averageLength = (totalLetters / totalWords).toFixed(2);
+const possibleCombinations = totalWords * (totalWords - 1); // For pairs of words
+---
+
+<Layout title={title}>
+    <div id="statistics">
+        <h1>{title}</h1>
+        <table>
+            <tr>
+                <td>Antall ord:</td>
+                <td>{totalWords}</td>
+            </tr>
+            <tr>
+                <td>Gjennomsnittlig ordlengde:</td>
+                <td>{averageLength} bokstaver</td>
+            </tr>
+            <tr>
+                <td>Totalt antall bokstaver:</td>
+                <td>{totalLetters}</td>
+            </tr>
+            <tr>
+                <td>Antall mulige kombinasjoner:</td>
+                <td>{possibleCombinations.toLocaleString('no')}</td>
+            </tr>
+        </table>
+    </div>
+</Layout>
