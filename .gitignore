@@ -150,8 +150,9 @@ dist
 
 
 
-# Eleventy
-_site
+# Astro
+.astro
+
 # Devenv
 .devenv*
 devenv.local.nix
