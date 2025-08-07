@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "eleventy",
-    "watch": "eleventy --watch",
-    "serve": "eleventy --serve",
-    "start": "eleventy --serve",
-    "debug": "DEBUG=* eleventy"
+    "build": "astro build",
+    "dev": "astro dev",
+    "start": "astro dev",
+    "preview": "astro preview",
+    "watch": "astro dev"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,9 @@
     "url": "https://github.com/cruftlab/tilfeldigeord.no/issues"
   },
   "homepage": "https://github.com/cruftlab/tilfeldigeord.no#readme",
-  "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+  "dependencies": {
+    "@astrojs/node": "^9.3.3",
+    "astro": "^5.12.8",
+    "js-yaml": "^4.1.0"
   }
 }
