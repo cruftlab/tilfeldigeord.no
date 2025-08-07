@@ -1,0 +1,104 @@
+#randomWord h1 {
+    padding-left: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+#randomWord a:hover {
+    text-decoration: underline;
+}
+
+/* body and divs */
+body {
+ font-family: Georgia, serif;
+ text-align: center;
+ font-size: 1.4rem;
+}
+footer {
+    border-top: 1px solid black;
+    font-size: 1rem;
+    margin-top: 2em;
+    padding-top: 1.5em;
+}
+/* end of body and divs */
+
+
+/* fonts */
+#word h1 {
+ font-size: 3rem;
+}
+a {
+ text-decoration: none;
+ color: #317104;
+}
+h1 a {
+  text-decoration: none;
+  color: black;
+}
+h1 a:hover, p.all a:hover, ul.returnlinks a:hover, .footer a:hover {
+ text-decoration: none;
+ color: black;
+ background: url('bg.gif');
+}
+/* end of fonts */
+
+
+/* lists */
+ul.returnlinks {
+ list-style-type: disc;
+ margin: 0;
+ padding: 0;
+}
+
+ul.returnlinks li {
+ display: inline;
+ margin-left: 5em;
+}
+/* end of lists */
+
+/* classes */
+.footer {
+  padding-top: 10em;
+  font-size: 0.6rem;
+}
+/* end of classes */
+
+/* lists */
+#allWords ul {
+    padding: 0;
+}
+#allWords li {
+    display: inline;
+}
+#allWords li:first-child {
+    text-transform: capitalize;
+}
+#allWords li:after {
+    content: ", ";
+}
+#allWords li:last-child:after {
+    content: "";
+}
+/* end of lists */
+
+
+/* nav */
+nav {
+    margin-top: 2em;
+}
+nav ul {
+    font-size: 1.4rem;
+    padding: 0;
+}
+nav li {
+    display: inline;
+    margin-left: 0.4em;
+    margin-right: 0.4em;
+}
+/* end of nav */
+
+/* statistics */
+#statistics table {
+    margin: auto;
+    text-align: left;
+}
+/* end of statistics */
