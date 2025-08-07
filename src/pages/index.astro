@@ -5,44 +5,42 @@ import { nouns } from '../lib/nouns.ts';
 
 <Layout title="Tilfeldig ord">
   <script define:vars={{ nouns }} is:inline>
-    // Shuffle an array
-    // Stolen from https://stackoverflow.com/a/6274381
-    Object.defineProperty(Array.prototype, 'shuffle', {
-        value: function() {
-            for (let i = this.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [this[i], this[j]] = [this[j], this[i]];
-            }
-            return this;
-        }
-    });
-
-    // Capitalize first letter
-    // Stolen from https://stackoverflow.com/a/3291856
-    String.prototype.capitalize = function() {
-        return this.charAt(0).toUpperCase() + this.slice(1);
+    // Fisher-Yates shuffle algorithm
+    function shuffleArray(array) {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
     }
 
-    // Get n random words from list
-    function getRandomWords(n) {
-      return nouns
-        .shuffle()
-        .slice(0, n);
-    };
+    // Capitalize the first letter of a string
+    function capitalize(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 
-    // Get n random words as unordered list
-    // TODO: Link to each word
-    // TODO: Add rules for combining words (i.e. concatenate if three of the same letter in a row)
-    function getRandomWordAsList(n) {
-      var word = getRandomWords(n)
-        .join("")
-        .capitalize();
+    // Get n random words from a word list
+    function getRandomWords(words, n) {
+      return shuffleArray(words).slice(0, n);
+    }
+
+    // Generate a random compound word by combining n words
+    function generateRandomWord(words, n = 2) {
+      const selectedWords = getRandomWords(words, n);
+      return capitalize(selectedWords.join(""));
+    }
+
+    // Generate HTML for displaying a random word
+    function generateRandomWordHTML(words, n = 2) {
+      const word = generateRandomWord(words, n);
       return `<h1>${word}</h1>`;
-    };
+    }
 
     function updatePageWithRandomWord() {
-      document.getElementById("randomWord").innerHTML = getRandomWordAsList(2);
-    };
+      const randomWordHTML = generateRandomWordHTML(nouns, 2);
+      document.getElementById("randomWord").innerHTML = randomWordHTML;
+    }
 
     // Make function global for onclick access
     window.updatePageWithRandomWord = updatePageWithRandomWord;
