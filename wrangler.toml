@@ -1,0 +1,10 @@
+# CloudFlare Pages configuration
+name = "tilfeldigeord-no"
+compatibility_date = "2024-08-08"
+
+[build]
+command = "npm run build"
+destination = "dist"
+
+[env.production.vars]
+NODE_VERSION = "18"
