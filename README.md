@@ -2,6 +2,12 @@
 This is the source code behind [tilfeldigeord.no](https://tilfeldigeord.no/). The page is built using
 [Eleventy](https://11ty.dev/), with [Nunjucks](https://mozilla.github.io/nunjucks/) templates.
 
+## Deployment
+The site is deployed to CloudFlare Pages automatically on pushes to the `main` branch. The build configuration:
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node.js version: 18
+
 # Attributions
 The favicon is the [Shuffle](https://icons.getbootstrap.com/icons/shuffle/) icon,
 by [Bootstrap](https://getbootstrap.com/).
