@@ -1,0 +1,13 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { nouns } from '../lib/nouns.ts';
+---
+
+<Layout title="Alle ord">
+  <div id="allWords">
+    <h1>Alle ordene:</h1>
+    <ul>
+      {nouns.map((noun) => <li>{noun}</li>)}
+    </ul>
+  </div>
+</Layout>
