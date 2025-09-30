@@ -2,7 +2,7 @@
 This is the source code behind [tilfeldigeord.no](https://tilfeldigeord.no/). The page is built using
 [Eleventy](https://11ty.dev/), with [Nunjucks](https://mozilla.github.io/nunjucks/) templates.
 
-The dictionary currently contains 909 Norwegian words that can be combined to create 825,372 unique compound words.
+The dictionary currently contains 912 Norwegian words that can be combined to create 830,832 unique compound words.
 
 # Attributions
 The favicon is the [Shuffle](https://icons.getbootstrap.com/icons/shuffle/) icon,
