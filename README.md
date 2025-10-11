@@ -1,6 +1,6 @@
 # Tilfeldige ord
 This is the source code behind [tilfeldigeord.no](https://tilfeldigeord.no/). The page is built using
-[Eleventy](https://11ty.dev/), with [Nunjucks](https://mozilla.github.io/nunjucks/) templates.
+[Astro](https://astro.build/) with static site generation.
 
 The dictionary currently contains 912 Norwegian words that can be combined to create 830,832 unique compound words.
 
@@ -8,7 +8,7 @@ The dictionary currently contains 912 Norwegian words that can be combined to cr
 The favicon is the [Shuffle](https://icons.getbootstrap.com/icons/shuffle/) icon,
 by [Bootstrap](https://getbootstrap.com/).
 
-Most of the Eleventy stuff is more or less stolen from [Max Böck](https://mxb.dev/)'s work, most notably
+Most of the Astro setup follows best practices, with previous inspiration from [Max Böck](https://mxb.dev/)'s work on
 the _excellent_ [Emergency Site Kit](https://github.com/maxboeck/emergency-site). So, thanks for that :smile:
 
 # Also

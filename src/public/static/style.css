@@ -7,8 +7,17 @@
     text-decoration: underline;
 }
 
+button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
 /* body and divs */
-body {
+body, button {
  font-family: Georgia, serif;
  text-align: center;
  font-size: 1.4rem;
@@ -26,7 +35,7 @@ footer {
 #word h1 {
  font-size: 3rem;
 }
-a {
+a, button {
  text-decoration: none;
  color: #317104;
 }

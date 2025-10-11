@@ -1,0 +1,66 @@
+---
+export interface Props {
+  title?: string;
+}
+
+const { title = "Tilfeldige ord" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="description" content="Lag noen tilfeldige ord" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/static/images/favicon/favicon.svg"
+    />
+    <link
+      rel="alternate icon"
+      type="image/png"
+      sizes="16x16"
+      href="/static/images/favicon/favicon.png"
+    />
+    <link
+      rel="mask-icon"
+      type="image/svg+xml"
+      href="/static/images/favicon/favicon.svg"
+    />
+    <link
+      rel="apple-touch-icon"
+      type="image/png"
+      sizes="192x192"
+      href="/static/images/favicon/maskable-icon.png"
+    />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>{title}</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <main>
+      <slot />
+      <nav>
+        <ul>
+          <li><a href="/">Tilfeldig ord</a></li>
+          <li><a href="/alle/">Alle ord</a></li>
+          <li><a href="/statistikk/">Statistikk</a></li>
+        </ul>
+      </nav>
+    </main>
+
+    <footer>
+      Laget med kjærlighet og <a
+        href="https://github.com/cruftlab/tilfeldigeord.no/">åpen kildekode</a
+      >.
+    </footer>
+  </body>
+</html>
