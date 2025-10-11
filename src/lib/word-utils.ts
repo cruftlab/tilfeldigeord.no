@@ -45,14 +45,3 @@ export function generateRandomWord(words: string[], n: number = 2): string {
   const selectedWords = getRandomWords(words, n);
   return capitalize(selectedWords.join(""));
 }
-
-/**
- * Generate HTML for displaying a random word
- * @param words Array of words to select from
- * @param n Number of words to combine (default: 2)
- * @returns HTML string with the random word in h1 tag
- */
-export function generateRandomWordHTML(words: string[], n: number = 2): string {
-  const word = generateRandomWord(words, n);
-  return `<h1>${word}</h1>`;
-}

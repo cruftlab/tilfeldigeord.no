@@ -6,4 +6,4 @@ const yamlPath = path.resolve('./src/data/nouns.yaml');
 const yamlContent = fs.readFileSync(yamlPath, 'utf8');
 const data = yaml.load(yamlContent) as { nouns: string[] };
 
-export const nouns = data.nouns;
+export const nouns = data.nouns.sort();

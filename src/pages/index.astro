@@ -1,55 +1,9 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { nouns } from '../lib/nouns.ts';
+import RandomWordGenerator from "../components/RandomWordGenerator.astro";
+import Layout from "../layouts/Layout.astro";
+import { nouns } from "../lib/nouns";
+
 ---
-
 <Layout title="Tilfeldig ord">
-  <script define:vars={{ nouns }} is:inline>
-    // Fisher-Yates shuffle algorithm
-    function shuffleArray(array) {
-      const shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    }
-
-    // Capitalize the first letter of a string
-    function capitalize(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    // Get n random words from a word list
-    function getRandomWords(words, n) {
-      return shuffleArray(words).slice(0, n);
-    }
-
-    // Generate a random compound word by combining n words
-    function generateRandomWord(words, n = 2) {
-      const selectedWords = getRandomWords(words, n);
-      return capitalize(selectedWords.join(""));
-    }
-
-    // Generate HTML for displaying a random word
-    function generateRandomWordHTML(words, n = 2) {
-      const word = generateRandomWord(words, n);
-      return `<h1>${word}</h1>`;
-    }
-
-    function updatePageWithRandomWord() {
-      const randomWordHTML = generateRandomWordHTML(nouns, 2);
-      document.getElementById("randomWord").innerHTML = randomWordHTML;
-    }
-
-    // Make function global for onclick access
-    window.updatePageWithRandomWord = updatePageWithRandomWord;
-
-    // Update random words when page loads
-    document.addEventListener("DOMContentLoaded", updatePageWithRandomWord);
-  </script>
-
-  <div id="randomWord"></div>
-
-  <nav><a id="new" href="#" onclick="updatePageWithRandomWord();return false;">Nytt ord</a></nav>
+  <RandomWordGenerator words={nouns} />
 </Layout>

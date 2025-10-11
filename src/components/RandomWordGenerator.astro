@@ -1,0 +1,41 @@
+---
+import { generateRandomWord } from "../lib/word-utils";
+
+const { words = [] }: { words?: string[] } = Astro.props;
+---
+
+<div>
+  <div id="randomWord">
+    <h1>{generateRandomWord(words, 2)}</h1>
+  </div>
+  <button id="new-word-btn" type="button">Nytt ord</button>
+</div>
+
+<script
+  is:inline
+  type="application/json"
+  id="words-data"
+  set:html={JSON.stringify(words)}
+/>
+
+<script>
+  import { generateRandomWord } from "../lib/word-utils";
+
+  const words = JSON.parse(
+    document.getElementById("words-data")?.textContent || "[]"
+  );
+  const currentWordElement = document.getElementById("randomWord");
+  const newWordBtn = document.getElementById("new-word-btn");
+
+  function updateWord() {
+    if (currentWordElement) {
+      currentWordElement.innerHTML = `<h1>${generateRandomWord(words, 2)}</h1>`;
+    }
+  }
+
+  // Load initial word
+  updateWord();
+
+  // Add click handler
+  newWordBtn?.addEventListener("click", updateWord);
+</script>
