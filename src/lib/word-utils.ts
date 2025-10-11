@@ -43,5 +43,5 @@ export function getRandomWords(words: string[], n: number): string[] {
  */
 export function generateRandomWord(words: string[], n: number = 2): string {
   const selectedWords = getRandomWords(words, n);
-  return capitalize(selectedWords.join(""));
+  return capitalize(selectedWords.join("&shy;"));
 }
