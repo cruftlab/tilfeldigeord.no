@@ -9,7 +9,7 @@ const initialWordParts = getRandomWords(words, 2);
 
 <div>
   <div id="randomWord">
-    <h1>{createCompoundWord(initialWordParts)}</h1>
+    <h1 set:html={createCompoundWord(initialWordParts)}></h1>
   </div>
   <button id="new-word-btn" type="button">Nytt ord</button>
   <button id="switch-word-btn" type="button">Bytt rekkefølge</button>
