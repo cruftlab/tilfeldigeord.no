@@ -4,7 +4,6 @@ import {
   capitalize, 
   getRandomWords, 
   generateRandomWord, 
-  generateRandomWordHTML 
 } from '../src/lib/word-utils';
 
 describe('word-utils', () => {
@@ -113,30 +112,6 @@ describe('word-utils', () => {
       }
       // With 5 words and 2 combinations, we should get multiple unique results
       expect(results.size).toBeGreaterThan(1);
-    });
-  });
-
-  describe('generateRandomWordHTML', () => {
-    it('should wrap the word in h1 tags', () => {
-      const result = generateRandomWordHTML(testWords);
-      expect(result).toMatch(/^<h1>.+<\/h1>$/);
-    });
-
-    it('should contain a capitalized word', () => {
-      const result = generateRandomWordHTML(testWords);
-      const wordMatch = result.match(/<h1>(.+)<\/h1>/);
-      expect(wordMatch).toBeTruthy();
-      if (wordMatch) {
-        const word = wordMatch[1];
-        expect(word[0]).toBe(word[0].toUpperCase());
-      }
-    });
-
-    it('should respect the number of words parameter', () => {
-      const result1 = generateRandomWordHTML(testWords, 1);
-      const result2 = generateRandomWordHTML(testWords, 2);
-      expect(result1).toMatch(/^<h1>.+<\/h1>$/);
-      expect(result2).toMatch(/^<h1>.+<\/h1>$/);
     });
   });
 });
