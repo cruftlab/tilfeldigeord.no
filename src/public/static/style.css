@@ -14,6 +14,8 @@ button {
     padding: 0;
     cursor: pointer;
     margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 /* body and divs */
