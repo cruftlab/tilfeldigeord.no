@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { nouns } from '../lib/nouns.ts';
+import { nouns } from '../lib/nouns';
 
 const count = nouns.length;
 const combinations = count * (count - 1);
@@ -12,11 +12,11 @@ const combinations = count * (count - 1);
     <table>
       <tr>
         <th>Antall ord:</th>
-        <td>{count}</td>
+        <td>{count.toLocaleString('nb-NO')}</td>
       </tr>
       <tr>
         <th>Antall mulige kombinasjoner:</th>
-        <td>{combinations}</td>
+        <td>{combinations.toLocaleString('nb-NO')}</td>
       </tr>
     </table>
   </div>
