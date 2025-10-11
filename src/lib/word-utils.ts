@@ -45,3 +45,21 @@ export function generateRandomWord(words: string[], n: number = 2): string {
   const selectedWords = getRandomWords(words, n);
   return capitalize(selectedWords.join("&shy;"));
 }
+
+/**
+ * Create a compound word from an array of word parts
+ * @param wordParts Array of individual words to combine
+ * @returns A capitalized compound word
+ */
+export function createCompoundWord(wordParts: string[]): string {
+  return capitalize(wordParts.join("&shy;"));
+}
+
+/**
+ * Switch/reverse the order of words in a compound word
+ * @param wordParts Array of individual words
+ * @returns Array with reversed word order
+ */
+export function switchWordOrder(wordParts: string[]): string[] {
+  return [...wordParts].reverse();
+}

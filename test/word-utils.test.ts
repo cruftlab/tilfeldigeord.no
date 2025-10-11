@@ -3,7 +3,9 @@ import {
   shuffleArray, 
   capitalize, 
   getRandomWords, 
-  generateRandomWord, 
+  generateRandomWord,
+  createCompoundWord,
+  switchWordOrder,
 } from '../src/lib/word-utils';
 
 describe('word-utils', () => {
@@ -112,6 +114,62 @@ describe('word-utils', () => {
       }
       // With 5 words and 2 combinations, we should get multiple unique results
       expect(results.size).toBeGreaterThan(1);
+    });
+  });
+
+  describe('createCompoundWord', () => {
+    it('should create a capitalized compound word from word parts', () => {
+      const wordParts = ['hus', 'bil'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Hus&shy;bil');
+    });
+
+    it('should capitalize the first letter', () => {
+      const wordParts = ['test', 'ord'];
+      const result = createCompoundWord(wordParts);
+      expect(result[0]).toBe('T');
+    });
+
+    it('should handle single word', () => {
+      const result = createCompoundWord(['ord']);
+      expect(result).toBe('Ord');
+    });
+
+    it('should handle multiple words', () => {
+      const wordParts = ['ett', 'to', 'tre'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Ett&shy;to&shy;tre');
+    });
+  });
+
+  describe('switchWordOrder', () => {
+    it('should reverse the order of two words', () => {
+      const wordParts = ['hus', 'bil'];
+      const result = switchWordOrder(wordParts);
+      expect(result).toEqual(['bil', 'hus']);
+    });
+
+    it('should not modify the original array', () => {
+      const wordParts = ['hus', 'bil'];
+      const original = [...wordParts];
+      switchWordOrder(wordParts);
+      expect(wordParts).toEqual(original);
+    });
+
+    it('should handle multiple words', () => {
+      const wordParts = ['ett', 'to', 'tre'];
+      const result = switchWordOrder(wordParts);
+      expect(result).toEqual(['tre', 'to', 'ett']);
+    });
+
+    it('should handle single word', () => {
+      const result = switchWordOrder(['ord']);
+      expect(result).toEqual(['ord']);
+    });
+
+    it('should handle empty array', () => {
+      const result = switchWordOrder([]);
+      expect(result).toEqual([]);
     });
   });
 });
