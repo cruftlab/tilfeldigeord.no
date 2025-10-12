@@ -138,7 +138,43 @@ describe('word-utils', () => {
     it('should handle multiple words', () => {
       const wordParts = ['ett', 'to', 'tre'];
       const result = createCompoundWord(wordParts);
-      expect(result).toBe('Ett&shy;to&shy;tre');
+      expect(result).toBe('Et&shy;to&shy;tre');
+    });
+
+    it('should apply combining rule when first word ends with double consonant and second starts with same consonant', () => {
+      const wordParts = ['gebiss', 'skandale'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Gebis&shy;skandale');
+    });
+
+    it('should apply combining rule for anorakk + kefir', () => {
+      const wordParts = ['anorakk', 'kefir'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Anorak&shy;kefir');
+    });
+
+    it('should not apply rule when consonants do not match', () => {
+      const wordParts = ['hus', 'bil'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Hus&shy;bil');
+    });
+
+    it('should not apply rule when first word does not end with double consonant', () => {
+      const wordParts = ['test', 'ord'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Test&shy;ord');
+    });
+
+    it('should apply combining rule for each adjacent pair in multiple words', () => {
+      const wordParts = ['ball', 'lett', 'tekst'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Bal&shy;let&shy;tekst');
+    });
+
+    it('should handle words where rule does not apply', () => {
+      const wordParts = ['katt', 'hus'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('Katt&shy;hus');
     });
   });
 

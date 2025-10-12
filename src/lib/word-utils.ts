@@ -47,12 +47,64 @@ export function generateRandomWord(words: string[], n: number = 2): string {
 }
 
 /**
+ * Apply Norwegian word combining rules to a pair of words
+ * Rule: If the first word ends with a double consonant and the second word
+ * starts with the same consonant, remove one consonant from the first word
+ * @param firstWord The first word in the combination
+ * @param secondWord The second word in the combination
+ * @returns The first word with combining rules applied
+ */
+function applyCombiningRule(firstWord: string, secondWord: string): string {
+  if (firstWord.length < 2 || secondWord.length < 1) {
+    return firstWord;
+  }
+
+  const lastChar = firstWord[firstWord.length - 1];
+  const secondLastChar = firstWord[firstWord.length - 2];
+  const firstCharOfSecond = secondWord[0];
+
+  // Check if the first word ends with a double consonant
+  // and the second word starts with the same consonant
+  if (lastChar === secondLastChar && lastChar === firstCharOfSecond) {
+    // Remove the last character (one of the double consonants)
+    return firstWord.slice(0, -1);
+  }
+
+  return firstWord;
+}
+
+/**
+ * Apply combining rules to an array of word parts
+ * @param wordParts Array of individual words to combine
+ * @returns Array of words with combining rules applied
+ */
+function applyCombiningRules(wordParts: string[]): string[] {
+  if (wordParts.length < 2) {
+    return wordParts;
+  }
+
+  const result: string[] = [];
+  for (let i = 0; i < wordParts.length; i++) {
+    if (i < wordParts.length - 1) {
+      // Apply combining rule between current word and next word
+      result.push(applyCombiningRule(wordParts[i], wordParts[i + 1]));
+    } else {
+      // Last word is not modified
+      result.push(wordParts[i]);
+    }
+  }
+
+  return result;
+}
+
+/**
  * Create a compound word from an array of word parts
  * @param wordParts Array of individual words to combine
  * @returns A capitalized compound word
  */
 export function createCompoundWord(wordParts: string[]): string {
-  return capitalize(wordParts.join("&shy;"));
+  const combinedParts = applyCombiningRules(wordParts);
+  return capitalize(combinedParts.join("&shy;"));
 }
 
 /**
