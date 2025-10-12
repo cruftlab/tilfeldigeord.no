@@ -9,12 +9,11 @@ When you merge a pull request to the `main` branch:
 1. **semantic-release** analyzes your commit messages using [Conventional Commits](https://www.conventionalcommits.org/)
 2. It determines the version bump type and automatically:
    - Updates `package.json` and `package-lock.json` with the new version
-   - Generates and updates `CHANGELOG.md`
-   - Creates a GitHub release with release notes
+   - Creates a GitHub release
    - Creates a git tag
    - Commits the changes back to main with `[skip ci]` to avoid infinite loops
 
-**No manual PR review needed** - The automation only modifies version-related files (`package.json`, `package-lock.json`, `CHANGELOG.md`), providing safety while automating releases.
+**No manual PR review needed** - The automation only modifies version-related files (`package.json`, `package-lock.json`), providing safety while automating releases.
 
 ## Commit Message Format
 
@@ -85,7 +84,6 @@ BREAKING CHANGE: Word data is now stored in YAML format instead of JSON"
 3. semantic-release automatically:
    - Determines version bump from commits
    - Updates package.json and package-lock.json
-   - Generates/updates CHANGELOG.md
    - Creates GitHub release and tag
    - Commits changes back to main
 4. **No manual review required** - Release happens automatically!
@@ -111,11 +109,11 @@ We chose semantic-release over other alternatives for several reasons:
 
 3. **semantic-release** (chosen approach)
    - ✅ Fully automatic releases - no manual review needed
-   - ✅ Automatic changelog generation
+   - ✅ Fully automatic releases - no manual review needed
    - ✅ Highly configurable and extensible
    - ✅ Large community with many plugins
    - ✅ Supports conventional commits out of the box
-   - ✅ **Limited scope** - Only modifies version files (package.json, CHANGELOG.md)
+   - ✅ **Limited scope** - Only modifies version files (package.json, package-lock.json)
    - ✅ Commits changes back with `[skip ci]` to avoid infinite loops
 
 ### Key Advantages
@@ -123,9 +121,8 @@ We chose semantic-release over other alternatives for several reasons:
 - **No manual review needed**: Automatically releases after PR merge - saves time
 - **Limited file modifications**: Only updates version-related files, providing safety
 - **Conventional commits**: Native support for the standard commit message format
-- **Automatic changelog**: Generates beautiful changelogs from commit messages
 - **Configurable**: Extensive plugin ecosystem for customization
-- **Safe automation**: Only modifies package.json, package-lock.json, and CHANGELOG.md
+- **Safe automation**: Only modifies package.json and package-lock.json
 - **Maintained**: Actively maintained by Google with excellent documentation
 - **Package.json integration**: Automatically updates version in package.json
 
