@@ -11,6 +11,11 @@ by [Bootstrap](https://getbootstrap.com/).
 Most of the Astro setup follows best practices, with previous inspiration from [Max Böck](https://mxb.dev/)'s work on
 the _excellent_ [Emergency Site Kit](https://github.com/maxboeck/emergency-site). So, thanks for that :smile:
 
+# Versioning
+This project uses automated semantic versioning with [semantic-release](https://github.com/semantic-release/semantic-release).
+Releases happen automatically when PRs are merged to main - no manual review needed.
+See [VERSIONING.md](VERSIONING.md) for details on how to control version bumps through commit messages.
+
 # Also
 All the content on the website is in Norwegian, but all the source code is in
 English. Because why not.
