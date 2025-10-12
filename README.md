@@ -12,7 +12,8 @@ Most of the Astro setup follows best practices, with previous inspiration from [
 the _excellent_ [Emergency Site Kit](https://github.com/maxboeck/emergency-site). So, thanks for that :smile:
 
 # Versioning
-This project uses automated semantic versioning with [release-please](https://github.com/googleapis/release-please).
+This project uses automated semantic versioning with [semantic-release](https://github.com/semantic-release/semantic-release).
+Releases happen automatically when PRs are merged to main - no manual review needed.
 See [VERSIONING.md](VERSIONING.md) for details on how to control version bumps through commit messages.
 
 # Also

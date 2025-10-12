@@ -1,18 +1,20 @@
 # Automated Version Bumping
 
-This project uses [release-please](https://github.com/googleapis/release-please) to automatically manage versioning and releases.
+This project uses [semantic-release](https://github.com/semantic-release/semantic-release) to automatically manage versioning and releases.
 
 ## How It Works
 
 When you merge a pull request to the `main` branch:
 
-1. **release-please** analyzes your commit messages
-2. It determines the version bump type based on [Conventional Commits](https://www.conventionalcommits.org/)
-3. It creates/updates a "Release PR" with:
-   - Updated version in `package.json`
-   - Generated CHANGELOG
-   - Release notes
-4. When you merge the Release PR, it creates a GitHub release with a git tag
+1. **semantic-release** analyzes your commit messages using [Conventional Commits](https://www.conventionalcommits.org/)
+2. It determines the version bump type and automatically:
+   - Updates `package.json` and `package-lock.json` with the new version
+   - Generates and updates `CHANGELOG.md`
+   - Creates a GitHub release with release notes
+   - Creates a git tag
+   - Commits the changes back to main with `[skip ci]` to avoid infinite loops
+
+**No manual PR review needed** - The automation only modifies version-related files (`package.json`, `package-lock.json`, `CHANGELOG.md`), providing safety while automating releases.
 
 ## Commit Message Format
 
@@ -48,10 +50,11 @@ fix!: change word combination logic
 
 ## Using PR Labels
 
-You can also use labels on pull requests:
-- `release-as: patch` - Force a patch release
-- `release-as: minor` - Force a minor release
-- `release-as: major` - Force a major release
+You can also use labels on pull requests to override version detection:
+- `release` - Force a release even if commits don't trigger one
+- `skip-release` - Skip release even if commits would normally trigger one
+
+Note: Unlike release-please, semantic-release determines version bumps purely from commit messages, not PR labels.
 
 ## Examples
 
@@ -79,14 +82,17 @@ BREAKING CHANGE: Word data is now stored in YAML format instead of JSON"
 
 1. Make your changes and commit using conventional commit messages
 2. Open and merge your PR to `main`
-3. release-please will create/update a "Release PR"
-4. Review the Release PR (check version bump, changelog)
-5. Merge the Release PR when ready to release
-6. A GitHub release and tag will be created automatically
+3. semantic-release automatically:
+   - Determines version bump from commits
+   - Updates package.json and package-lock.json
+   - Generates/updates CHANGELOG.md
+   - Creates GitHub release and tag
+   - Commits changes back to main
+4. **No manual review required** - Release happens automatically!
 
-## Why release-please?
+## Why semantic-release?
 
-We chose release-please over other alternatives for several reasons:
+We chose semantic-release over other alternatives for several reasons:
 
 ### Alternatives Considered
 
@@ -96,50 +102,56 @@ We chose release-please over other alternatives for several reasons:
    - ❌ Doesn't generate changelogs
    - ❌ Smaller community and maintenance
 
-2. **semantic-release**
-   - ✅ Very powerful and flexible
-   - ❌ Complex configuration
-   - ❌ Opinionated defaults that may not fit all projects
-   - ❌ Automatic releases (can't review before release)
-
-3. **release-please** (chosen approach)
+2. **release-please** (initially implemented)
    - ✅ Simple setup with minimal configuration
-   - ✅ Creates a reviewable Release PR before releasing
    - ✅ Automatic changelog generation
-   - ✅ Supports conventional commits out of the box
    - ✅ Maintained by Google with large community
-   - ✅ Language-specific support (updates package.json automatically)
-   - ✅ Flexible: supports both commit message and PR label approaches
-   - ✅ No automatic releases - you control when to release by merging the Release PR
+   - ❌ Creates a Release PR that requires manual review/merge
+   - ❌ Two-step process (merge PR, then merge Release PR)
+
+3. **semantic-release** (chosen approach)
+   - ✅ Fully automatic releases - no manual review needed
+   - ✅ Automatic changelog generation
+   - ✅ Highly configurable and extensible
+   - ✅ Large community with many plugins
+   - ✅ Supports conventional commits out of the box
+   - ✅ **Limited scope** - Only modifies version files (package.json, CHANGELOG.md)
+   - ✅ Commits changes back with `[skip ci]` to avoid infinite loops
 
 ### Key Advantages
 
-- **Review before release**: Unlike semantic-release, you can review the version bump and changelog before it's released
+- **No manual review needed**: Automatically releases after PR merge - saves time
+- **Limited file modifications**: Only updates version-related files, providing safety
 - **Conventional commits**: Native support for the standard commit message format
 - **Automatic changelog**: Generates beautiful changelogs from commit messages
-- **Flexibility**: Supports multiple ways to control versioning (commits, labels)
+- **Configurable**: Extensive plugin ecosystem for customization
+- **Safe automation**: Only modifies package.json, package-lock.json, and CHANGELOG.md
 - **Maintained**: Actively maintained by Google with excellent documentation
 - **Package.json integration**: Automatically updates version in package.json
 
 ## Troubleshooting
 
-### Release PR not created
+### Release not created
 - Check that commits follow conventional commit format
 - Ensure commits are on the `main` branch
 - Check GitHub Actions logs for errors
+- Verify semantic-release ran (check commit history for `chore(release):` commits)
 
 ### Wrong version bump
 - Review your commit messages
 - Use `!` or `BREAKING CHANGE:` for major versions
-- Use PR labels to override automatic detection
+- Check the CHANGELOG.md to see what was detected
 
 ### Multiple commits
-release-please analyzes all commits since the last release. If you have:
+semantic-release analyzes all commits since the last release. If you have:
 - 3 fix commits + 1 feat commit → Minor version bump (0.X.0)
 - 2 feat commits + 1 breaking change → Major version bump (X.0.0)
 
+### Avoiding infinite loops
+semantic-release commits changes with `[skip ci]` in the message, which prevents the workflow from running again on the release commit.
+
 ## References
 
-- [release-please documentation](https://github.com/googleapis/release-please)
+- [semantic-release documentation](https://github.com/semantic-release/semantic-release)
 - [Conventional Commits specification](https://www.conventionalcommits.org/)
 - [Semantic Versioning](https://semver.org/)
