@@ -11,7 +11,8 @@ When you merge a pull request to the `main` branch:
    - Updates `package.json` and `package-lock.json` with the new version
    - Creates a GitHub release
    - Creates a git tag
-   - Commits the changes back to main with `[skip ci]` to avoid infinite loops
+   - Commits the changes back to main
+   - Triggers the build and deployment workflow to deploy the new version
 
 **No manual PR review needed** - The automation only modifies version-related files (`package.json`, `package-lock.json`), providing safety while automating releases.
 
@@ -86,6 +87,7 @@ BREAKING CHANGE: Word data is now stored in YAML format instead of JSON"
    - Updates package.json and package-lock.json
    - Creates GitHub release and tag
    - Commits changes back to main
+   - Triggers deployment with the new version
 4. **No manual review required** - Release happens automatically!
 
 ## Why semantic-release?
@@ -114,7 +116,7 @@ We chose semantic-release over other alternatives for several reasons:
    - ✅ Large community with many plugins
    - ✅ Supports conventional commits out of the box
    - ✅ **Limited scope** - Only modifies version files (package.json, package-lock.json)
-   - ✅ Commits changes back with `[skip ci]` to avoid infinite loops
+   - ✅ Prevents infinite loops by skipping release workflow on version bump commits
 
 ### Key Advantages
 
@@ -145,7 +147,7 @@ semantic-release analyzes all commits since the last release. If you have:
 - 2 feat commits + 1 breaking change → Major version bump (X.0.0)
 
 ### Avoiding infinite loops
-semantic-release commits changes with `[skip ci]` in the message, which prevents the workflow from running again on the release commit.
+The release workflow is configured to skip when it detects a commit from semantic-release (commits starting with `chore(release):`). This prevents the workflow from running again on the release commit while still allowing the build and deployment workflows to run.
 
 ## References
 
