@@ -47,64 +47,103 @@ export function generateRandomWord(words: string[], n: number = 2): string {
 }
 
 /**
- * Apply Norwegian word combining rules to a pair of words
- * Rule: If the first word ends with a double consonant and the second word
- * starts with the same consonant, remove one consonant from the first word
- * @param firstWord The first word in the combination
- * @param secondWord The second word in the combination
- * @returns The first word with combining rules applied
+ * Represents a word part with both its original and combined form
  */
-function applyCombiningRule(firstWord: string, secondWord: string): string {
-  if (firstWord.length < 2 || secondWord.length < 1) {
-    return firstWord;
-  }
-
-  const lastChar = firstWord[firstWord.length - 1];
-  const secondLastChar = firstWord[firstWord.length - 2];
-  const firstCharOfSecond = secondWord[0];
-
-  // Check if the first word ends with a double consonant
-  // and the second word starts with the same consonant
-  if (lastChar === secondLastChar && lastChar === firstCharOfSecond) {
-    // Remove the last character (one of the double consonants)
-    return firstWord.slice(0, -1);
-  }
-
-  return firstWord;
+export interface WordPart {
+  /** The original/dictionary form of the word */
+  original: string;
+  /** The form used when combining with other words */
+  combined: string;
 }
 
 /**
- * Apply combining rules to an array of word parts
- * @param wordParts Array of individual words to combine
- * @returns Array of words with combining rules applied
+ * Type for a combining rule function
+ * Takes the current word and the next word, returns the combined form of the current word
  */
-function applyCombiningRules(wordParts: string[]): string[] {
-  if (wordParts.length < 2) {
-    return wordParts;
+type CombiningRule = (currentWord: string, nextWord: string) => string;
+
+/**
+ * Rule: Avoid triple consonants by removing one consonant when the first word 
+ * ends with a double consonant and the second word starts with the same consonant
+ */
+const avoidTripleConsonants: CombiningRule = (currentWord: string, nextWord: string): string => {
+  if (currentWord.length < 2 || nextWord.length < 1) {
+    return currentWord;
   }
 
-  const result: string[] = [];
-  for (let i = 0; i < wordParts.length; i++) {
-    if (i < wordParts.length - 1) {
-      // Apply combining rule between current word and next word
-      result.push(applyCombiningRule(wordParts[i], wordParts[i + 1]));
-    } else {
-      // Last word is not modified
-      result.push(wordParts[i]);
-    }
+  const lastChar = currentWord[currentWord.length - 1];
+  const secondLastChar = currentWord[currentWord.length - 2];
+  const firstCharOfNext = nextWord[0];
+
+  // Check if current word ends with double consonant and next word starts with same consonant
+  if (lastChar === secondLastChar && lastChar === firstCharOfNext) {
+    return currentWord.slice(0, -1);
+  }
+
+  return currentWord;
+};
+
+/**
+ * All combining rules to apply (in order)
+ */
+const COMBINING_RULES: CombiningRule[] = [avoidTripleConsonants];
+
+/**
+ * Apply combining rules to a pair of words using a sliding window approach
+ * @param currentWord The current word
+ * @param nextWord The next word (if any)
+ * @returns The combined form of the current word
+ */
+function applyCombiningRules(currentWord: string, nextWord: string | undefined): string {
+  if (!nextWord) {
+    return currentWord;
+  }
+
+  let result = currentWord;
+  for (const rule of COMBINING_RULES) {
+    result = rule(result, nextWord);
   }
 
   return result;
 }
 
 /**
+ * Convert word parts to WordPart objects with both original and combined forms
+ * Uses a sliding window approach to apply combining rules
+ * @param wordParts Array of original word strings
+ * @returns Array of WordPart objects with original and combined forms
+ */
+export function createWordParts(wordParts: string[]): WordPart[] {
+  if (wordParts.length === 0) {
+    return [];
+  }
+
+  return wordParts.map((word, index) => {
+    const nextWord = index < wordParts.length - 1 ? wordParts[index + 1] : undefined;
+    return {
+      original: word,
+      combined: applyCombiningRules(word, nextWord),
+    };
+  });
+}
+
+/**
  * Create a compound word from an array of word parts
- * @param wordParts Array of individual words to combine
+ * @param wordParts Array of individual words to combine (strings or WordPart objects)
  * @returns A capitalized compound word
  */
-export function createCompoundWord(wordParts: string[]): string {
-  const combinedParts = applyCombiningRules(wordParts);
-  return capitalize(combinedParts.join("&shy;"));
+export function createCompoundWord(wordParts: string[] | WordPart[]): string {
+  if (wordParts.length === 0) {
+    return "";
+  }
+
+  // Convert to WordPart objects if necessary
+  const parts: WordPart[] = typeof wordParts[0] === 'string' 
+    ? createWordParts(wordParts as string[])
+    : wordParts as WordPart[];
+
+  const combinedWord = parts.map(part => part.combined).join("&shy;");
+  return capitalize(combinedWord);
 }
 
 /**

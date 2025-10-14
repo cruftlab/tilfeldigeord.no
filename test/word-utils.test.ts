@@ -6,6 +6,8 @@ import {
   generateRandomWord,
   createCompoundWord,
   switchWordOrder,
+  createWordParts,
+  type WordPart,
 } from '../src/lib/word-utils';
 
 describe('word-utils', () => {
@@ -175,6 +177,76 @@ describe('word-utils', () => {
       const wordParts = ['katt', 'hus'];
       const result = createCompoundWord(wordParts);
       expect(result).toBe('Katt&shy;hus');
+    });
+
+    it('should handle empty array', () => {
+      const result = createCompoundWord([]);
+      expect(result).toBe('');
+    });
+
+    it('should work with single-letter words like "I"', () => {
+      const wordParts = ['i', 'glo'];
+      const result = createCompoundWord(wordParts);
+      expect(result).toBe('I&shy;glo');
+    });
+  });
+
+  describe('createWordParts', () => {
+    it('should create WordPart objects with original and combined forms', () => {
+      const wordParts = ['gebiss', 'skandale'];
+      const result = createWordParts(wordParts);
+      
+      expect(result).toHaveLength(2);
+      expect(result[0]).toEqual({ original: 'gebiss', combined: 'gebis' });
+      expect(result[1]).toEqual({ original: 'skandale', combined: 'skandale' });
+    });
+
+    it('should preserve original forms for links', () => {
+      const wordParts = ['anorakk', 'kefir'];
+      const result = createWordParts(wordParts);
+      
+      // Original forms are preserved
+      expect(result[0].original).toBe('anorakk');
+      expect(result[1].original).toBe('kefir');
+      
+      // Combined forms apply rules
+      expect(result[0].combined).toBe('anorak');
+      expect(result[1].combined).toBe('kefir');
+    });
+
+    it('should not modify words when no rule applies', () => {
+      const wordParts = ['hus', 'bil'];
+      const result = createWordParts(wordParts);
+      
+      expect(result[0]).toEqual({ original: 'hus', combined: 'hus' });
+      expect(result[1]).toEqual({ original: 'bil', combined: 'bil' });
+    });
+
+    it('should handle single-letter words correctly', () => {
+      const wordParts = ['i', 'glo'];
+      const result = createWordParts(wordParts);
+      
+      expect(result[0]).toEqual({ original: 'i', combined: 'i' });
+      expect(result[1]).toEqual({ original: 'glo', combined: 'glo' });
+    });
+
+    it('should use sliding window for multiple words', () => {
+      const wordParts = ['ball', 'lett', 'tekst'];
+      const result = createWordParts(wordParts);
+      
+      expect(result[0]).toEqual({ original: 'ball', combined: 'bal' });
+      expect(result[1]).toEqual({ original: 'lett', combined: 'let' });
+      expect(result[2]).toEqual({ original: 'tekst', combined: 'tekst' });
+    });
+
+    it('should handle empty array', () => {
+      const result = createWordParts([]);
+      expect(result).toEqual([]);
+    });
+
+    it('should handle single word', () => {
+      const result = createWordParts(['ord']);
+      expect(result).toEqual([{ original: 'ord', combined: 'ord' }]);
     });
   });
 
