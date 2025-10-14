@@ -34,6 +34,7 @@ footer {
 }
 footer a {
     color: #666;
+    text-decoration: underline;
 }
 /* end of body and divs */
 
