@@ -1,15 +1,15 @@
 ---
-import { getRandomWords, createCompoundWord } from "../lib/word-utils";
+import { getRandomWords } from "../lib/word-utils";
 
 const { words = [] }: { words?: string[] } = Astro.props;
 
-// Generate initial word parts
+// Generate initial word parts (will be replaced client-side if there's a selected word)
 const initialWordParts = getRandomWords(words, 2);
 ---
 
 <div>
   <div id="randomWord">
-    <h1 set:html={createCompoundWord(initialWordParts)}></h1>
+    <h1 id="compound-word"></h1>
   </div>
   <button id="new-word-btn" type="button">Nytt ord</button>
   <button id="switch-word-btn" type="button">Bytt rekkefølge</button>
@@ -30,37 +30,97 @@ const initialWordParts = getRandomWords(words, 2);
 />
 
 <script>
-  import { getRandomWords, createCompoundWord, switchWordOrder } from "../lib/word-utils";
+  import { getRandomWords, getRandomWordsWithFixed, createWordParts, type WordPart } from "../lib/word-utils";
 
   const words = JSON.parse(
     document.getElementById("words-data")?.textContent || "[]"
   );
   
-  let currentWordParts = JSON.parse(
-    document.getElementById("initial-word-parts")?.textContent || "[]"
-  );
+  // Read selected word from URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedWordParam = urlParams.get('ord');
   
-  const currentWordElement = document.getElementById("randomWord");
-  const newWordBtn = document.getElementById("new-word-btn");
-  const switchWordBtn = document.getElementById("switch-word-btn");
-
-  function updateWord() {
-    if (currentWordElement) {
-      currentWordElement.innerHTML = `<h1>${createCompoundWord(currentWordParts)}</h1>`;
+  // Validate selected word
+  let selectedWord: string | null = null;
+  if (selectedWordParam) {
+    if (words.includes(selectedWordParam)) {
+      selectedWord = selectedWordParam;
+    } else {
+      console.warn(`Word "${selectedWordParam}" not found in dictionary. Rendering page normally.`);
     }
   }
 
+  // Initialize word parts - use selected word if present
+  let currentWordParts: string[];
+  if (selectedWord) {
+    currentWordParts = getRandomWordsWithFixed(words, selectedWord, 2);
+  } else {
+    currentWordParts = JSON.parse(
+      document.getElementById("initial-word-parts")?.textContent || "[]"
+    );
+  }
+  
+  const compoundWordElement = document.getElementById("compound-word");
+  const newWordBtn = document.getElementById("new-word-btn");
+  const switchWordBtn = document.getElementById("switch-word-btn");
+
+  /**
+   * Render a compound word with clickable parts
+   */
+  function renderCompoundWord(wordParts: string[]) {
+    if (!compoundWordElement) return;
+
+    const parts = createWordParts(wordParts);
+    
+    // Create HTML with links for each word part
+    const html = parts.map((part: WordPart, index: number) => {
+      const combinedText = part.combined.charAt(0).toUpperCase() + part.combined.slice(1);
+      const href = `/?ord=${encodeURIComponent(part.original)}`;
+      
+      // Add soft hyphen between parts (except after the last one)
+      const separator = index < parts.length - 1 ? '&shy;' : '';
+      
+      return `<a href="${href}" class="word-part">${combinedText}</a>${separator}`;
+    }).join('');
+    
+    compoundWordElement.innerHTML = html;
+  }
+
+  function updateWord() {
+    renderCompoundWord(currentWordParts);
+  }
+
   function generateNewWord() {
-    currentWordParts = getRandomWords(words, 2);
+    if (selectedWord) {
+      currentWordParts = getRandomWordsWithFixed(words, selectedWord, 2);
+    } else {
+      currentWordParts = getRandomWords(words, 2);
+    }
     updateWord();
   }
 
   function switchWords() {
-    currentWordParts = switchWordOrder(currentWordParts);
+    currentWordParts = [...currentWordParts].reverse();
     updateWord();
   }
+
+  // Initialize the compound word
+  updateWord();
 
   // Add click handlers
   newWordBtn?.addEventListener("click", generateNewWord);
   switchWordBtn?.addEventListener("click", switchWords);
 </script>
+
+<style>
+  .word-part {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px dotted currentColor;
+  }
+  
+  .word-part:hover {
+    text-decoration: none;
+    border-bottom-style: solid;
+  }
+</style>
