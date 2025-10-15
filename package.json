@@ -1,6 +1,6 @@
 {
   "name": "tilfeldigeord.no",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Tilfeldige ord",
   "main": "index.js",
   "scripts": {
