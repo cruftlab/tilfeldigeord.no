@@ -1,0 +1,66 @@
+---
+import { getRandomWords, createCompoundWord } from "../lib/word-utils";
+
+const { words = [] }: { words?: string[] } = Astro.props;
+
+// Generate initial word parts
+const initialWordParts = getRandomWords(words, 2);
+---
+
+<div>
+  <div id="randomWord">
+    <h1 set:html={createCompoundWord(initialWordParts)}></h1>
+  </div>
+  <button id="new-word-btn" type="button">Nytt ord</button>
+  <button id="switch-word-btn" type="button">Bytt rekkefølge</button>
+</div>
+
+<script
+  is:inline
+  type="application/json"
+  id="words-data"
+  set:html={JSON.stringify(words)}
+/>
+
+<script
+  is:inline
+  type="application/json"
+  id="initial-word-parts"
+  set:html={JSON.stringify(initialWordParts)}
+/>
+
+<script>
+  import { getRandomWords, createCompoundWord, switchWordOrder } from "../lib/word-utils";
+
+  const words = JSON.parse(
+    document.getElementById("words-data")?.textContent || "[]"
+  );
+  
+  let currentWordParts = JSON.parse(
+    document.getElementById("initial-word-parts")?.textContent || "[]"
+  );
+  
+  const currentWordElement = document.getElementById("randomWord");
+  const newWordBtn = document.getElementById("new-word-btn");
+  const switchWordBtn = document.getElementById("switch-word-btn");
+
+  function updateWord() {
+    if (currentWordElement) {
+      currentWordElement.innerHTML = `<h1>${createCompoundWord(currentWordParts)}</h1>`;
+    }
+  }
+
+  function generateNewWord() {
+    currentWordParts = getRandomWords(words, 2);
+    updateWord();
+  }
+
+  function switchWords() {
+    currentWordParts = switchWordOrder(currentWordParts);
+    updateWord();
+  }
+
+  // Add click handlers
+  newWordBtn?.addEventListener("click", generateNewWord);
+  switchWordBtn?.addEventListener("click", switchWords);
+</script>

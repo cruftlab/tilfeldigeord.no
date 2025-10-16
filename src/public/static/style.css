@@ -1,32 +1,40 @@
-#randomWord ul {
+#randomWord h1 {
     padding-left: 0;
     font-size: 2.5rem;
     font-weight: bold;
-}
-#randomWord li {
-    display: inline;
-}
-#randomWord li:first-child {
-    text-transform: capitalize;
-}
-#randomWord a {
-    color: black;
 }
 #randomWord a:hover {
     text-decoration: underline;
 }
 
+button {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
 /* body and divs */
-body {
+body, button {
  font-family: Georgia, serif;
  text-align: center;
  font-size: 1.4rem;
 }
 footer {
     border-top: 1px solid black;
-    font-size: 1rem;
+    font-size: 0.85rem;
+    color: #666;
     margin-top: 2em;
-    padding-top: 1.5em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+}
+footer a {
+    color: #666;
+    text-decoration: underline;
 }
 /* end of body and divs */
 
@@ -35,9 +43,9 @@ footer {
 #word h1 {
  font-size: 3rem;
 }
-a {
+a, button {
  text-decoration: none;
- color: #005500;
+ color: #317104;
 }
 h1 a {
   text-decoration: none;
@@ -94,7 +102,7 @@ ul.returnlinks li {
 nav {
     margin-top: 2em;
 }
-ul[role=nav] {
+nav ul {
     font-size: 1.4rem;
     padding: 0;
 }

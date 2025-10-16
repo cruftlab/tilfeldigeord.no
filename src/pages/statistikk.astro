@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { nouns } from '../lib/nouns';
+
+const count = nouns.length;
+const combinations = count * (count - 1);
+---
+
+<Layout title="Statistikk">
+  <div id="statistics">
+    <h1>Statistikk:</h1>
+    <table>
+      <tr>
+        <th>Antall ord:</th>
+        <td>{count.toLocaleString('nb-NO')}</td>
+      </tr>
+      <tr>
+        <th>Antall mulige kombinasjoner:</th>
+        <td>{combinations.toLocaleString('nb-NO')}</td>
+      </tr>
+    </table>
+  </div>
+</Layout>
