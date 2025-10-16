@@ -11,6 +11,7 @@ const initialWordParts = getRandomWords(words, 2);
   <div id="randomWord">
     <h1 id="compound-word"></h1>
   </div>
+  <div id="selected-word-badge" style="display: none;"></div>
   <button id="new-word-btn" type="button">Nytt ord</button>
   <button id="switch-word-btn" type="button">Bytt rekkefølge</button>
 </div>
@@ -61,8 +62,23 @@ const initialWordParts = getRandomWords(words, 2);
   }
   
   const compoundWordElement = document.getElementById("compound-word");
+  const selectedWordBadge = document.getElementById("selected-word-badge");
   const newWordBtn = document.getElementById("new-word-btn");
   const switchWordBtn = document.getElementById("switch-word-btn");
+
+  /**
+   * Update the selected word badge visibility and content
+   */
+  function updateBadge() {
+    if (!selectedWordBadge) return;
+    
+    if (selectedWord) {
+      selectedWordBadge.style.display = 'block';
+      selectedWordBadge.innerHTML = `Viser ord med "${selectedWord}" <a href="/" class="badge-close">×</a>`;
+    } else {
+      selectedWordBadge.style.display = 'none';
+    }
+  }
 
   /**
    * Render a compound word with clickable parts
@@ -73,8 +89,11 @@ const initialWordParts = getRandomWords(words, 2);
     const parts = createWordParts(wordParts);
     
     // Create HTML with links for each word part
+    // Only capitalize the first word part
     const html = parts.map((part: WordPart, index: number) => {
-      const combinedText = part.combined.charAt(0).toUpperCase() + part.combined.slice(1);
+      const combinedText = index === 0 
+        ? part.combined.charAt(0).toUpperCase() + part.combined.slice(1)
+        : part.combined;
       const href = `/?ord=${encodeURIComponent(part.original)}`;
       
       // Add soft hyphen between parts (except after the last one)
@@ -104,8 +123,9 @@ const initialWordParts = getRandomWords(words, 2);
     updateWord();
   }
 
-  // Initialize the compound word
+  // Initialize the compound word and badge
   updateWord();
+  updateBadge();
 
   // Add click handlers
   newWordBtn?.addEventListener("click", generateNewWord);
@@ -122,5 +142,30 @@ const initialWordParts = getRandomWords(words, 2);
   .word-part:hover {
     text-decoration: none;
     border-bottom-style: solid;
+  }
+
+  #selected-word-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  #selected-word-badge .badge-close {
+    margin-left: 0.5rem;
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  #selected-word-badge .badge-close:hover {
+    color: #000;
   }
 </style>
