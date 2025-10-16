@@ -1,16 +1,17 @@
 ---
-import { getRandomWords, createCompoundWord } from "../lib/word-utils";
+import { getRandomWords } from "../lib/word-utils";
 
 const { words = [] }: { words?: string[] } = Astro.props;
 
-// Generate initial word parts
+// Generate initial word parts (will be replaced client-side if there's a selected word)
 const initialWordParts = getRandomWords(words, 2);
 ---
 
 <div>
   <div id="randomWord">
-    <h1 set:html={createCompoundWord(initialWordParts)}></h1>
+    <h1 id="compound-word"></h1>
   </div>
+  <div id="selected-word-badge" style="display: none;"></div>
   <button id="new-word-btn" type="button">Nytt ord</button>
   <button id="switch-word-btn" type="button">Bytt rekkefølge</button>
 </div>
@@ -30,37 +31,144 @@ const initialWordParts = getRandomWords(words, 2);
 />
 
 <script>
-  import { getRandomWords, createCompoundWord, switchWordOrder } from "../lib/word-utils";
+  import { getRandomWords, getRandomWordsWithFixed, createWordParts, type WordPart } from "../lib/word-utils";
 
   const words = JSON.parse(
     document.getElementById("words-data")?.textContent || "[]"
   );
   
-  let currentWordParts = JSON.parse(
-    document.getElementById("initial-word-parts")?.textContent || "[]"
-  );
+  // Read selected word from URL query parameter
+  const urlParams = new URLSearchParams(window.location.search);
+  const selectedWordParam = urlParams.get('ord');
   
-  const currentWordElement = document.getElementById("randomWord");
-  const newWordBtn = document.getElementById("new-word-btn");
-  const switchWordBtn = document.getElementById("switch-word-btn");
-
-  function updateWord() {
-    if (currentWordElement) {
-      currentWordElement.innerHTML = `<h1>${createCompoundWord(currentWordParts)}</h1>`;
+  // Validate selected word
+  let selectedWord: string | null = null;
+  if (selectedWordParam) {
+    if (words.includes(selectedWordParam)) {
+      selectedWord = selectedWordParam;
+    } else {
+      console.warn(`Word "${selectedWordParam}" not found in dictionary. Rendering page normally.`);
     }
   }
 
+  // Initialize word parts - use selected word if present
+  let currentWordParts: string[];
+  if (selectedWord) {
+    currentWordParts = getRandomWordsWithFixed(words, selectedWord, 2);
+  } else {
+    currentWordParts = JSON.parse(
+      document.getElementById("initial-word-parts")?.textContent || "[]"
+    );
+  }
+  
+  const compoundWordElement = document.getElementById("compound-word");
+  const selectedWordBadge = document.getElementById("selected-word-badge");
+  const newWordBtn = document.getElementById("new-word-btn");
+  const switchWordBtn = document.getElementById("switch-word-btn");
+
+  /**
+   * Update the selected word badge visibility and content
+   */
+  function updateBadge() {
+    if (!selectedWordBadge) return;
+    
+    if (selectedWord) {
+      selectedWordBadge.style.display = 'block';
+      selectedWordBadge.innerHTML = `Viser ord med "${selectedWord}" <a href="/" class="badge-close">×</a>`;
+    } else {
+      selectedWordBadge.style.display = 'none';
+    }
+  }
+
+  /**
+   * Render a compound word with clickable parts
+   */
+  function renderCompoundWord(wordParts: string[]) {
+    if (!compoundWordElement) return;
+
+    const parts = createWordParts(wordParts);
+    
+    // Create HTML with links for each word part
+    // Only capitalize the first word part
+    const html = parts.map((part: WordPart, index: number) => {
+      const combinedText = index === 0 
+        ? part.combined.charAt(0).toUpperCase() + part.combined.slice(1)
+        : part.combined;
+      const href = `/?ord=${encodeURIComponent(part.original)}`;
+      
+      // Add soft hyphen between parts (except after the last one)
+      const separator = index < parts.length - 1 ? '&shy;' : '';
+      
+      return `<a href="${href}" class="word-part">${combinedText}</a>${separator}`;
+    }).join('');
+    
+    compoundWordElement.innerHTML = html;
+  }
+
+  function updateWord() {
+    renderCompoundWord(currentWordParts);
+  }
+
   function generateNewWord() {
-    currentWordParts = getRandomWords(words, 2);
+    if (selectedWord) {
+      currentWordParts = getRandomWordsWithFixed(words, selectedWord, 2);
+    } else {
+      currentWordParts = getRandomWords(words, 2);
+    }
     updateWord();
   }
 
   function switchWords() {
-    currentWordParts = switchWordOrder(currentWordParts);
+    currentWordParts = [...currentWordParts].reverse();
     updateWord();
   }
+
+  // Initialize the compound word and badge
+  updateWord();
+  updateBadge();
 
   // Add click handlers
   newWordBtn?.addEventListener("click", generateNewWord);
   switchWordBtn?.addEventListener("click", switchWords);
 </script>
+
+<style>
+  .word-part {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px dotted currentColor;
+  }
+  
+  .word-part:hover {
+    text-decoration: none;
+    border-bottom-style: solid;
+  }
+
+  #selected-word-badge {
+    display: block;
+    margin: 1rem auto 0.5rem auto;
+    padding: 0.5rem 0.75rem;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #333;
+    width: fit-content;
+    text-align: center;
+  }
+
+  #selected-word-badge .badge-close {
+    margin-left: 0.5rem;
+    color: #666;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.6rem;
+    line-height: 1;
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  #selected-word-badge .badge-close:hover {
+    color: #000;
+  }
+</style>

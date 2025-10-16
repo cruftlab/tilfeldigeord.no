@@ -3,6 +3,7 @@ import {
   shuffleArray, 
   capitalize, 
   getRandomWords, 
+  getRandomWordsWithFixed,
   generateRandomWord,
   createCompoundWord,
   switchWordOrder,
@@ -90,6 +91,54 @@ describe('word-utils', () => {
 
     it('should return unique words when possible', () => {
       const result = getRandomWords(testWords, 3);
+      const unique = [...new Set(result)];
+      expect(unique).toHaveLength(result.length);
+    });
+  });
+
+  describe('getRandomWordsWithFixed', () => {
+    it('should return the requested number of words', () => {
+      const result = getRandomWordsWithFixed(testWords, 'hus', 3);
+      expect(result).toHaveLength(3);
+    });
+
+    it('should include the fixed word', () => {
+      const result = getRandomWordsWithFixed(testWords, 'hus', 3);
+      expect(result).toContain('hus');
+    });
+
+    it('should return only the fixed word when n is 1', () => {
+      const result = getRandomWordsWithFixed(testWords, 'hus', 1);
+      expect(result).toEqual(['hus']);
+    });
+
+    it('should return empty array when n is 0', () => {
+      const result = getRandomWordsWithFixed(testWords, 'hus', 0);
+      expect(result).toEqual([]);
+    });
+
+    it('should handle fixed word not in the list', () => {
+      const result = getRandomWordsWithFixed(testWords, 'notexist', 2);
+      expect(result).toHaveLength(2);
+      expect(result).not.toContain('notexist');
+      result.forEach(word => {
+        expect(testWords).toContain(word);
+      });
+    });
+
+    it('should place fixed word at random positions', () => {
+      const positions = new Set();
+      for (let i = 0; i < 20; i++) {
+        const result = getRandomWordsWithFixed(testWords, 'hus', 3);
+        const position = result.indexOf('hus');
+        positions.add(position);
+      }
+      // With 3 words, we should see at least 2 different positions across 20 tries
+      expect(positions.size).toBeGreaterThan(1);
+    });
+
+    it('should return unique words when possible', () => {
+      const result = getRandomWordsWithFixed(testWords, 'hus', 3);
       const unique = [...new Set(result)];
       expect(unique).toHaveLength(result.length);
     });

@@ -7,7 +7,11 @@ import { nouns } from '../lib/nouns.ts';
   <div id="allWords">
     <h1>Alle ordene:</h1>
     <ul>
-      {nouns.map((noun) => <li>{noun}</li>)}
+      {nouns.map((noun) => (
+        <li>
+          <a href={`/?ord=${encodeURIComponent(noun)}`}>{noun}</a>
+        </li>
+      ))}
     </ul>
   </div>
 </Layout>

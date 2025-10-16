@@ -154,3 +154,37 @@ export function createCompoundWord(wordParts: string[] | WordPart[]): string {
 export function switchWordOrder(wordParts: string[]): string[] {
   return [...wordParts].reverse();
 }
+
+/**
+ * Get n random words with one word fixed (always included)
+ * @param words Array of words to select from
+ * @param fixedWord The word that must be included
+ * @param n Total number of words to select (including the fixed word)
+ * @returns Array of n random words including the fixed word
+ */
+export function getRandomWordsWithFixed(words: string[], fixedWord: string, n: number): string[] {
+  if (n <= 0) {
+    return [];
+  }
+
+  // If the fixed word is not in the word list, return regular random words
+  if (!words.includes(fixedWord)) {
+    return getRandomWords(words, n);
+  }
+
+  // If we only need one word, return the fixed word
+  if (n === 1) {
+    return [fixedWord];
+  }
+
+  // Get random words excluding the fixed word
+  const otherWords = words.filter(word => word !== fixedWord);
+  const randomOthers = getRandomWords(otherWords, n - 1);
+
+  // Insert the fixed word at a random position
+  const position = Math.floor(Math.random() * n);
+  const result = [...randomOthers];
+  result.splice(position, 0, fixedWord);
+
+  return result;
+}
