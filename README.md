@@ -2,14 +2,18 @@
 This is the source code behind [tilfeldigeord.no](https://tilfeldigeord.no/). The page is built using
 [Astro](https://astro.build/) with static site generation.
 
-The dictionary currently contains 912 Norwegian words that can be combined to create 830,832 unique compound words.
+The dictionary currently contains mostly nouns (substantiv), and a few verbs. Suggestions for new words are very welcome!
+
+# Suggest a new word
+Create a new issue in GitHub, and write the word(s) you'd like to add, and preferably write whether it's a noun or a verb. 
+
+I'll do my best to merge them promptly 🙂
 
 # Attributions
 The favicon is the [Shuffle](https://icons.getbootstrap.com/icons/shuffle/) icon,
 by [Bootstrap](https://getbootstrap.com/).
 
-Most of the Astro setup follows best practices, with previous inspiration from [Max Böck](https://mxb.dev/)'s work on
-the _excellent_ [Emergency Site Kit](https://github.com/maxboeck/emergency-site). So, thanks for that :smile:
+Site design has been inspired by the [Emergency Site Kit](https://github.com/maxboeck/emergency-site).
 
 # Versioning
 This project uses automated semantic versioning with [semantic-release](https://github.com/semantic-release/semantic-release).
