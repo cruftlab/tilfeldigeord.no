@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { nouns } from '../lib/nouns';
+import { verbs } from '../lib/verbs';
 
-const count = nouns.length;
+const allWords = [...nouns, ...verbs];
+const count = allWords.length;
 const combinations = count * (count - 1);
 ---
 
