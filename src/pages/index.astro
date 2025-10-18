@@ -2,8 +2,10 @@
 import RandomWordGenerator from "../components/RandomWordGenerator.astro";
 import Layout from "../layouts/Layout.astro";
 import { nouns } from "../lib/nouns";
+import { verbs } from "../lib/verbs";
 
+const allWords = [...nouns, ...verbs];
 ---
 <Layout title="Tilfeldig ord">
-  <RandomWordGenerator words={nouns} />
+  <RandomWordGenerator words={allWords} />
 </Layout>
