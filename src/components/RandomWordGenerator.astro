@@ -1,10 +1,5 @@
 ---
-import { getRandomWords } from "../lib/word-utils";
-
 const { words = [] }: { words?: string[] } = Astro.props;
-
-// Generate initial word parts (will be replaced client-side if there's a selected word)
-const initialWordParts = getRandomWords(words, 2);
 ---
 
 <div>
@@ -21,13 +16,6 @@ const initialWordParts = getRandomWords(words, 2);
   type="application/json"
   id="words-data"
   set:html={JSON.stringify(words)}
-/>
-
-<script
-  is:inline
-  type="application/json"
-  id="initial-word-parts"
-  set:html={JSON.stringify(initialWordParts)}
 />
 
 <script>
@@ -51,14 +39,12 @@ const initialWordParts = getRandomWords(words, 2);
     }
   }
 
-  // Initialize word parts - use selected word if present
+  // Initialize word parts - use selected word if present, otherwise generate random
   let currentWordParts: string[];
   if (selectedWord) {
     currentWordParts = getRandomWordsWithFixed(words, selectedWord, 2);
   } else {
-    currentWordParts = JSON.parse(
-      document.getElementById("initial-word-parts")?.textContent || "[]"
-    );
+    currentWordParts = getRandomWords(words, 2);
   }
   
   const compoundWordElement = document.getElementById("compound-word");
