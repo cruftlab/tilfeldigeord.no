@@ -45,4 +45,14 @@ Extra very special thanks to these people ([emoji key](https://allcontributors.o
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+
+## Adding Contributors
+
+To add a contributor, comment on an issue or PR with:
+```
+@all-contributors please add @username for code, doc, design
+```
+
+Replace `@username` with the GitHub username and use the appropriate contribution types. See the [emoji key](https://allcontributors.org/docs/en/emoji-key) for available contribution types.
