@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/cruftlab/tilfeldigeord.no#readme",
   "dependencies": {
-    "@astrojs/node": "^9.5.4",
-    "astro": "^5.18.1",
+    "@astrojs/node": "^10.0.5",
+    "astro": "^6.1.8",
     "js-yaml": "^4.1.1"
   },
   "devDependencies": {
