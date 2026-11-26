@@ -13,24 +13,24 @@
     :root:not([data-theme]) {
         color-scheme: dark;
         --background: #1b1b1b;
-        --text: #eee;
+        --text: #dedede;
         --link: #a4d77e;
         --muted: #bbb;
         --surface: #333;
         --surface-border: #666;
-        --surface-text: #eee;
+        --surface-text: #dedede;
     }
 }
 
 :root[data-theme="dark"] {
     color-scheme: dark;
     --background: #1b1b1b;
-    --text: #eee;
+    --text: #dedede;
     --link: #a4d77e;
     --muted: #bbb;
     --surface: #333;
     --surface-border: #666;
-    --surface-text: #eee;
+    --surface-text: #dedede;
 }
 
 body {
