@@ -46,6 +46,7 @@ const version = packageJson.version;
 
     <title>{title}</title>
     <link rel="stylesheet" href="/static/style.css" />
+    <script is:inline src="/static/theme.js"></script>
   </head>
 
   <body>
@@ -58,6 +59,7 @@ const version = packageJson.version;
           <li><a href="/statistikk/">Statistikk</a></li>
         </ul>
       </nav>
+      <button id="theme-toggle" type="button" aria-pressed="false" hidden>Mørk modus</button>
     </main>
 
     <footer>
