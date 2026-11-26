@@ -31,5 +31,9 @@ describe('nouns', () => {
       expect(nouns).toBeInstanceOf(Array);
       expect(nouns.length).toBeGreaterThan(0);
     });
+
+    it('should include flakong', () => {
+      expect(nouns).toContain('flakong');
+    });
   });
 });
