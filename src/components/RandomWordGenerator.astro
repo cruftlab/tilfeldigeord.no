@@ -134,18 +134,18 @@ const { words = [] }: { words?: string[] } = Astro.props;
     display: block;
     margin: 1rem auto 0.5rem auto;
     padding: 0.5rem 0.75rem;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
+    background-color: var(--surface);
+    border: 1px solid var(--surface-border);
     border-radius: 4px;
     font-size: 0.9rem;
-    color: #333;
+    color: var(--surface-text);
     width: fit-content;
     text-align: center;
   }
 
   #selected-word-badge .badge-close {
     margin-left: 0.5rem;
-    color: #666;
+    color: var(--muted);
     text-decoration: none;
     font-weight: bold;
     font-size: 1.6rem;
@@ -155,6 +155,6 @@ const { words = [] }: { words?: string[] } = Astro.props;
   }
 
   #selected-word-badge .badge-close:hover {
-    color: #000;
+    color: var(--text);
   }
 </style>
