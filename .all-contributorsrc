@@ -15,6 +15,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "programmerHaaks",
+      "name": "Haakon Meihack",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18385104?v=4",
+      "profile": "https://github.com/programmerHaaks",
+      "contributions": [
+        "data"
+      ]
     }
   ],
   "contributorsPerLine": 7,

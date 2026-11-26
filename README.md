@@ -1,6 +1,6 @@
 # Tilfeldige ord
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 This is the source code behind [tilfeldigeord.no](https://tilfeldigeord.no/). The page is built using
 [Astro](https://astro.build/) with static site generation.
@@ -37,6 +37,7 @@ Extra very special thanks to these people ([emoji key](https://allcontributors.o
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://www.softis.net"><img src="https://avatars.githubusercontent.com/u/5313373?v=4?s=100" width="100px;" alt="Ole Jørgen Skogstad"/><br /><sub><b>Ole Jørgen Skogstad</b></sub></a><br /><a href="https://github.com/cruftlab/tilfeldigeord.no/commits?author=oskogstad" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/programmerHaaks"><img src="https://avatars.githubusercontent.com/u/18385104?v=4?s=100" width="100px;" alt="Haakon Meihack"/><br /><sub><b>Haakon Meihack</b></sub></a><br /><a href="#data-programmerHaaks" title="Data">🔣</a></td>
     </tr>
   </tbody>
 </table>
